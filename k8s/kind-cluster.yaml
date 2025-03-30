@@ -1,0 +1,9 @@
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: highpeaks
+nodes:
+- role: control-plane
+  # Port mapping so that NodePort 30080 on the cluster is accessible at localhost:8080
+  extraPortMappings:
+  - containerPort: 30080
+    hostPort: 8080
