@@ -1,6 +1,10 @@
 # highpeaks-infrastructure
 
-The **High Peaks Infrastructure** repository contains the configuration and infrastructure-as-code for setting up the Kubernetes environment that will host the High Peaks AI platform. It includes definitions for the base Kubernetes cluster (for local development), essential namespaces for each microservice, and a CI pipeline to ensure the configs remain valid.
+The **High Peaks Infrastructure** repository contains the configuration and infrastructure-as-code for setting up the Kubernetes environment that will host the High Peaks AI platform. It includes definitions for:
+
+- Creating a local [Kind](https://kind.sigs.k8s.io/) cluster using a custom configuration.
+- Bootstrapping Kubernetes namespaces for each microservice (identity, ml, flowise, devops).
+- A GitOps-ready deployment script that loads Docker images from the various High Peaks microservice repositories and deploys them.
 
 ## Repository Structure
 
@@ -15,7 +19,15 @@ highpeaks-infrastructure/
         └── ci.yml      # CI workflow to validate Kubernetes manifests (syntax check)
 ```
 
+
 ## Usage
+
+### Prerequisites
+
+- **Docker** must be installed and running.
+- **Kind** must be installed (e.g., via Homebrew: `brew install kind`).
+- **kubectl** and **Helm** must be installed.
+- The microservice repositories for High Peaks AI (identity, ml, Flowise, and devops agent) must be cloned as sibling directories. For example, you might have a directory structure like:
 
 This repository is primarily used to bootstrap and configure the Kubernetes cluster for High Peaks AI:
 
