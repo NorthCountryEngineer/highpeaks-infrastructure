@@ -51,7 +51,7 @@ build_and_load_image() {
 }
 
 pull_and_load_flowise() {
-    echo "Pulling Flowise image..."
+    echo "Pulling DataSwarm image..."
     docker pull "$FLOWISE_IMAGE"
     echo "Loading Flowise image into Kind cluster..."
     kind load docker-image "$FLOWISE_IMAGE" --name "$CLUSTER_NAME"
@@ -64,9 +64,14 @@ deploy_identity_service() {
 
 deploy_ml_platform() {
     echo "Deploying ML Platform service..."
-    kubectl apply -n highpeaks-ml -f "$ML_REPO/k8s/deployment.yaml"
-    kubectl apply -n highpeaks-ml -f "$ML_REPO/k8s/service.yaml"
+    kubectl apply -f "$ML_REPO/infrastructure/k8s/namespace.yaml"
+    kubectl apply -f "$ML_REPO/infrastructure/k8s/storage.yaml"
+    kubectl apply -f "$ML_REPO/infrastructure/k8s/mlflow.yaml"
+    kubectl apply -f "$ML_REPO/infrastructure/k8s/deployment.yaml"
+    kubectl apply -f "$ML_REPO/infrastructure/k8s/service.yaml"
+    echo "ML Platform Kubernetes resources deployed."
 }
+
 
 deploy_flowise_service() {
     echo "Deploying Flowise service..."
